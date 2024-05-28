@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/top_rated"
+        android:icon="@drawable/ic_baseline_keyboard_double_arrow_up_24"
+        android:title="@string/top_rated"/>
+
+    <item android:id="@+id/popular"
+        android:icon="@drawable/ic_baseline_star_rate_24"
+        android:title="@string/popular"/>
+
+    <item android:id="@+id/now_playing"
+        android:icon="@drawable/ic_baseline_play_arrow_24"
+        android:title="@string/now_playing"/>
+
+</menu>
