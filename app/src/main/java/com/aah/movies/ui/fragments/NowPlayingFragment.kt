@@ -22,7 +22,7 @@ class NowPlayingFragment : Fragment() {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentNowPlayingBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -33,7 +33,7 @@ class NowPlayingFragment : Fragment() {
         movieViewModel.getNowPlayingMovies()
 
         lifecycleScope.launch {
-            movieViewModel.nowPlayingMovieList.observe(this@NowPlayingFragment) {
+            movieViewModel.nowPlayingMovieList.observe(viewLifecycleOwner) {
                 mAdapter.getData(it.results.toMutableList())
                 binding.nowPlayingMovieRecyclerview.adapter = mAdapter
             }

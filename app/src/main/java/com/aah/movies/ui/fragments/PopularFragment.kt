@@ -23,7 +23,7 @@ class PopularFragment : Fragment() {
     private val movieViewModel: MovieViewModel by viewModels()
     private val mAdapter by lazy { MovieAdapter() }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentPopularBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -34,7 +34,7 @@ class PopularFragment : Fragment() {
         movieViewModel.getMovies()
 
         lifecycleScope.launch {
-            movieViewModel.popularMovieList.observe(this@PopularFragment) {
+            movieViewModel.popularMovieList.observe(viewLifecycleOwner) {
                 mAdapter.getData(it.results)
                 binding.popularMovieRecyclerview.adapter = mAdapter
             }

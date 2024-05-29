@@ -2,9 +2,11 @@ package com.aah.movies.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.aah.movies.R
 import androidx.recyclerview.widget.RecyclerView
 import com.aah.movies.databinding.MovieItemBinding
 import com.aah.domain.model.Result
+import com.bumptech.glide.Glide
 
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -18,7 +20,11 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.title
-        val overView = binding.overView
+        val movieImg = binding.movieImg
+        val movieDate = binding.dateTv
+        val movieRate = binding.rateTv
+        val movieLang = binding.langTv
+        val favouriteBtn = binding.favouriteBtn
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -29,8 +35,18 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
         val item = dataSet[position]
+        val posterUrl = "https://image.tmdb.org/t/p/w500"
+
         holder.title.text = item.title
-        holder.overView.text = item.overview
+
+        Glide.with(holder.movieImg)
+            .load(posterUrl + item.poster_path)
+            .placeholder(R.drawable.no_image_placeholder_svg)
+            .into(holder.movieImg)
+
+        holder.movieLang.text = item.original_language
+        holder.movieDate.text = item.release_date
+        holder.movieRate.text = item.vote_average.toString()
 
     }
 

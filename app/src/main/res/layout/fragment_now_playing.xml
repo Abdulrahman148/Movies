@@ -4,12 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.NowPlayingFragment">
+    tools:context=".ui.fragments.NowPlayingFragment"
+    android:layoutDirection="ltr"
+    android:layout_gravity="center">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:id="@+id/now_playing_movie_recyclerview" />
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:layout_gravity="center"
+        app:spanCount="2"
+        android:id="@+id/now_playing_movie_recyclerview"
+        tools:listitem="@layout/movie_item"/>
 
 </FrameLayout>
