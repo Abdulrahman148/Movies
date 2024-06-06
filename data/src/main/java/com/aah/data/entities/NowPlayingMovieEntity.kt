@@ -1,9 +1,14 @@
-package com.aah.domain.model
+package com.aah.data.entities
 
-data class Result(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "nowPlayingMovieEntity")
+data class NowPlayingMovieEntity(
     val adult: Boolean,
     val backdropPath: String,
     val genreIds: List<Int>,
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val originalLanguage: String,
     val originalTitle: String,
@@ -14,5 +19,6 @@ data class Result(
     val title: String,
     val video: Boolean,
     val voteAverage: Double,
-    val voteCount: Int
+    val voteCount: Int,
+    var isFavourite: Boolean = false
 )
