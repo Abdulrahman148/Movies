@@ -38,15 +38,13 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         val posterUrl = "https://image.tmdb.org/t/p/w500"
 
         holder.title.text = item.title
-
+        holder.movieLang.text = item.originalLanguage
+        holder.movieDate.text = item.releaseDate
+        holder.movieRate.text = item.voteAverage.toString()
         Glide.with(holder.movieImg)
-            .load(posterUrl + item.poster_path)
+            .load(posterUrl + item.posterPath)
             .placeholder(R.drawable.no_image_placeholder_svg)
             .into(holder.movieImg)
-
-        holder.movieLang.text = item.original_language
-        holder.movieDate.text = item.release_date
-        holder.movieRate.text = item.vote_average.toString()
 
     }
 
