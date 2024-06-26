@@ -1,5 +1,6 @@
 package com.aah.movies.di
 
+import com.aah.data.local.MovieDao
 import com.aah.data.network.ApiService
 import com.aah.data.repoImplementation.RepoImplementation
 import com.aah.domain.repo.MovieRepo
@@ -15,8 +16,8 @@ object RepoModule {
 
     @Provides
     @Singleton
-    fun provideRepo(apiService: ApiService) : MovieRepo {
-        return RepoImplementation(apiService)
+    fun provideRepo(apiService: ApiService, movieDao: MovieDao) : MovieRepo {
+        return RepoImplementation(apiService, movieDao)
     }
 
 }

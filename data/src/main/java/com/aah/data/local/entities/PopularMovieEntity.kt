@@ -1,10 +1,10 @@
-package com.aah.data.entities
+package com.aah.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "nowPlayingMovieEntity")
-data class NowPlayingMovieEntity(
+@Entity(tableName = "popularMovieEntity")
+data class PopularMovieEntity(
     val adult: Boolean,
     val backdropPath: String,
     val genreIds: List<Int>,

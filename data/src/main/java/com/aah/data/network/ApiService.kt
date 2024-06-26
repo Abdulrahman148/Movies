@@ -7,11 +7,11 @@ import retrofit2.http.GET
 
 interface ApiService {
     @GET("popular?api_key=426bff346dfb35a5c824f8c3acddcc15")
-    suspend fun getPopularMovies() : MovieResponse
+    suspend fun getPopularMovies() : Response<MovieResponse>
 
     @GET("top_rated?api_key=426bff346dfb35a5c824f8c3acddcc15")
-    suspend fun getTopRatedMovies() : MovieResponse
+    suspend fun getTopRatedMovies() : Response<MovieResponse>
 
     @GET("now_playing?api_key=426bff346dfb35a5c824f8c3acddcc15")
-    suspend fun getNowPlayingMovies() : NowPlayingMovieResponse
+    suspend fun getNowPlayingMovies() : Response<NowPlayingMovieResponse>
 }

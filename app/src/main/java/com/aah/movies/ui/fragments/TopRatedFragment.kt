@@ -1,15 +1,13 @@
 package com.aah.movies.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.aah.movies.R
 import com.aah.movies.adapter.MovieAdapter
-import com.aah.movies.databinding.FragmentNowPlayingBinding
 import com.aah.movies.databinding.FragmentTopRatedBinding
 import com.aah.movies.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,11 +27,12 @@ class TopRatedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movieViewModel.getTopRatedMovies()
+        movieViewModel.getAndInsertTopRatedMoviesFromApi()
+        movieViewModel.getLocalTopRatedMovies()
 
         lifecycleScope.launch {
             movieViewModel.topRatedMovieList.observe(viewLifecycleOwner) {
-                mAdapter.getData(it.results)
+                mAdapter.getData(it.toMutableList())
                 binding.topRatedMovieRecyclerview.adapter = mAdapter
             }
         }

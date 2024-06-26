@@ -1,8 +1,14 @@
 package com.aah.movies.di
 
 import com.aah.domain.repo.MovieRepo
+import com.aah.domain.usecase.GetAndInsertNowPlayingMovieUseCase
+import com.aah.domain.usecase.GetAndInsertPopularMovieUseCase
+import com.aah.domain.usecase.GetAndInsertTopRatedMovieUseCase
+import com.aah.domain.usecase.NowPlayingLocalMovieUseCase
 import com.aah.domain.usecase.NowPlayingMovieUseCase
+import com.aah.domain.usecase.PopularLocalMovieUseCase
 import com.aah.domain.usecase.PopularMovieUseCase
+import com.aah.domain.usecase.TopRatedLocalMovieUseCase
 import com.aah.domain.usecase.TopRatedMovieUseCase
 import dagger.Module
 import dagger.Provides
@@ -31,5 +37,42 @@ object UseCaseModule {
     fun provideNowPlayingMoviesUseCase(movieRepo: MovieRepo) : NowPlayingMovieUseCase {
         return NowPlayingMovieUseCase(movieRepo)
     }
+
+    @Provides
+    @Singleton
+    fun providePopularLocalMoviesUseCase(movieRepo: MovieRepo) : PopularLocalMovieUseCase {
+        return PopularLocalMovieUseCase(movieRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInsertPopularMoviesUseCase(movieRepo: MovieRepo) : GetAndInsertPopularMovieUseCase {
+        return GetAndInsertPopularMovieUseCase(movieRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTopRatedLocalMoviesUseCase(movieRepo: MovieRepo) : TopRatedLocalMovieUseCase {
+        return TopRatedLocalMovieUseCase(movieRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInsertTopRatedMoviesUseCase(movieRepo: MovieRepo) : GetAndInsertTopRatedMovieUseCase {
+        return GetAndInsertTopRatedMovieUseCase(movieRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNowPlayingLocalMoviesUseCase(movieRepo: MovieRepo) : NowPlayingLocalMovieUseCase {
+        return NowPlayingLocalMovieUseCase(movieRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInsertNowPlayingMoviesUseCase(movieRepo: MovieRepo) : GetAndInsertNowPlayingMovieUseCase {
+        return GetAndInsertNowPlayingMovieUseCase(movieRepo)
+    }
+
 
 }

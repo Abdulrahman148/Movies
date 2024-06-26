@@ -1,4 +1,4 @@
-package com.aah.data.entities
+package com.aah.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,15 +1,15 @@
-package com.aah.data.entities
+package com.aah.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "popularMovieEntity")
-data class PopularMovieEntity(
+@Entity(tableName = "nowPlayingMovieEntity")
+data class NowPlayingMovieEntity(
+    @PrimaryKey(autoGenerate = false)
+    val id: Int,
     val adult: Boolean,
     val backdropPath: String,
     val genreIds: List<Int>,
-    @PrimaryKey(autoGenerate = false)
-    val id: Int,
     val originalLanguage: String,
     val originalTitle: String,
     val overview: String,

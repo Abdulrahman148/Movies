@@ -2,14 +2,14 @@ package com.aah.movies.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.aah.movies.R
 import androidx.recyclerview.widget.RecyclerView
-import com.aah.movies.databinding.MovieItemBinding
 import com.aah.domain.model.Result
+import com.aah.movies.R
+import com.aah.movies.databinding.MovieItemBinding
 import com.bumptech.glide.Glide
 
 
-class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val dataSet: MutableList<Result> = mutableListOf()
 
@@ -38,13 +38,14 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         val posterUrl = "https://image.tmdb.org/t/p/w500"
 
         holder.title.text = item.title
-        holder.movieLang.text = item.originalLanguage
-        holder.movieDate.text = item.releaseDate
-        holder.movieRate.text = item.voteAverage.toString()
+        holder.movieLang.text = item.original_language
+        holder.movieDate.text = item.release_date
+        holder.movieRate.text = item.vote_average.toString()
         Glide.with(holder.movieImg)
-            .load(posterUrl + item.posterPath)
+            .load(posterUrl + item.poster_path)
             .placeholder(R.drawable.no_image_placeholder_svg)
             .into(holder.movieImg)
+
 
     }
 

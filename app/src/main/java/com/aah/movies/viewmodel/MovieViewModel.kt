@@ -4,50 +4,93 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aah.domain.model.MovieResponse
-import com.aah.domain.model.NowPlayingMovieResponse
+import com.aah.domain.model.Result
+import com.aah.domain.usecase.GetAndInsertNowPlayingMovieUseCase
+import com.aah.domain.usecase.GetAndInsertPopularMovieUseCase
+import com.aah.domain.usecase.GetAndInsertTopRatedMovieUseCase
+import com.aah.domain.usecase.NowPlayingLocalMovieUseCase
 import com.aah.domain.usecase.NowPlayingMovieUseCase
+import com.aah.domain.usecase.PopularLocalMovieUseCase
 import com.aah.domain.usecase.PopularMovieUseCase
+import com.aah.domain.usecase.TopRatedLocalMovieUseCase
 import com.aah.domain.usecase.TopRatedMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieViewModel @Inject constructor(val getPopularMovieUseCase: PopularMovieUseCase,
-                                         val getTopRatedMovieUseCase: TopRatedMovieUseCase,
-                                         val getNowPlayingMovieUseCase: NowPlayingMovieUseCase) : ViewModel() {
+class MovieViewModel @Inject constructor(
+    val getAndInsertPopularMovieUseCase: GetAndInsertPopularMovieUseCase,
+    val getPopularMovieUseCase: PopularMovieUseCase,
+    val getTopRatedMovieUseCase: TopRatedMovieUseCase,
+    val getNowPlayingMovieUseCase: NowPlayingMovieUseCase,
+    val getLocalPopularMovieUseCase: PopularLocalMovieUseCase,
+    val getLocalTopRatedMovieUseCase: TopRatedLocalMovieUseCase,
+    val getLocalNowPlayingMovieUseCase: NowPlayingLocalMovieUseCase,
+    val getAndInsertTopRatedLocalMovieUseCase : GetAndInsertTopRatedMovieUseCase,
+    val getAndInsertNowPlayingLocalMovieUseCase: GetAndInsertNowPlayingMovieUseCase
+) : ViewModel() {
 
-    val popularMovieList = MutableLiveData<MovieResponse>()
-    val topRatedMovieList = MutableLiveData<MovieResponse>()
-    val nowPlayingMovieList = MutableLiveData<NowPlayingMovieResponse>()
+    val popularMovieList = MutableLiveData<List<Result>>()
+    val topRatedMovieList = MutableLiveData<List<Result>>()
+    val nowPlayingMovieList = MutableLiveData<List<Result>>()
 
-    fun getMovies() {
+    fun getAndInsertPopularMoviesFromApi() {
         viewModelScope.launch {
             try {
-                popularMovieList.value = getPopularMovieUseCase()
+                getAndInsertPopularMovieUseCase()
             } catch (e: Exception) {
                 Log.e("MovieViewModel", e.message.toString())
             }
         }
     }
 
-    fun getTopRatedMovies() {
+    fun getAndInsertTopRatedMoviesFromApi() {
         viewModelScope.launch {
             try {
-                topRatedMovieList.value = getTopRatedMovieUseCase()
+                getAndInsertTopRatedLocalMovieUseCase()
             } catch (e: Exception) {
                 Log.e("MovieViewModel", e.message.toString())
             }
         }
     }
 
-    fun getNowPlayingMovies() {
+    fun getAndInsertNowPlayingMoviesFromApi() {
         viewModelScope.launch {
             try {
-                nowPlayingMovieList.value = getNowPlayingMovieUseCase()
+                getAndInsertNowPlayingLocalMovieUseCase()
             } catch (e: Exception) {
                 Log.e("MovieViewModel", e.message.toString())
+            }
+        }
+    }
+
+    fun getLocalPopularMovies() {
+        viewModelScope.launch {
+            if(getLocalPopularMovieUseCase().isEmpty()) {
+                popularMovieList.value = getPopularMovieUseCase().results
+            } else {
+                popularMovieList.value = getLocalPopularMovieUseCase()
+            }
+        }
+    }
+
+    fun getLocalTopRatedMovies() {
+        viewModelScope.launch {
+            if(getLocalTopRatedMovieUseCase().isEmpty()) {
+                topRatedMovieList.value = getTopRatedMovieUseCase().results
+            } else {
+                topRatedMovieList.value = getLocalTopRatedMovieUseCase()
+            }
+        }
+    }
+
+    fun getLocalNowPlayingMovies() {
+        viewModelScope.launch {
+            if(getLocalNowPlayingMovieUseCase().isEmpty()) {
+                nowPlayingMovieList.value = getNowPlayingMovieUseCase().results
+            } else {
+                nowPlayingMovieList.value = getLocalNowPlayingMovieUseCase()
             }
         }
     }
