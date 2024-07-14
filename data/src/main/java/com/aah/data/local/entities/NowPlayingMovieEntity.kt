@@ -5,11 +5,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "nowPlayingMovieEntity")
 data class NowPlayingMovieEntity(
+    val adult: Boolean,
+    val backdropPath: String?,
+    val genreIds: List<Int>,
     @PrimaryKey(autoGenerate = false)
     val id: Int,
-    val adult: Boolean,
-    val backdropPath: String,
-    val genreIds: List<Int>,
     val originalLanguage: String,
     val originalTitle: String,
     val overview: String,

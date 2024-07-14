@@ -9,7 +9,10 @@ import com.aah.movies.databinding.MovieItemBinding
 import com.bumptech.glide.Glide
 
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(
+    private val movieClickListener: MovieClickListener,
+    private val movieDetailsClickListener: MovieDetailsClickListener
+) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val dataSet: MutableList<Result> = mutableListOf()
 
@@ -25,6 +28,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         val movieRate = binding.rateTv
         val movieLang = binding.langTv
         val favouriteBtn = binding.favouriteBtn
+        val detailsBtn = binding.detailsBtn
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -36,6 +40,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
         val item = dataSet[position]
         val posterUrl = "https://image.tmdb.org/t/p/w500"
+        val isFavourite = item.isFavourites
 
         holder.title.text = item.title
         holder.movieLang.text = item.original_language
@@ -46,8 +51,29 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
             .placeholder(R.drawable.no_image_placeholder_svg)
             .into(holder.movieImg)
 
+        if (isFavourite) {
+            holder.favouriteBtn.setImageResource(R.drawable.baseline_favorite_24)
+        } else {
+            holder.favouriteBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+        }
+
+        holder.favouriteBtn.setOnClickListener {
+            movieClickListener.onMovieClicked(item)
+        }
+
+        holder.detailsBtn.setOnClickListener {
+            movieDetailsClickListener.onMovieDetailsClicked(item)
+        }
 
     }
 
     override fun getItemCount() = dataSet.size
+}
+
+interface MovieClickListener {
+    fun onMovieClicked(movie: Result)
+}
+
+interface MovieDetailsClickListener {
+    fun onMovieDetailsClicked(movie: Result)
 }

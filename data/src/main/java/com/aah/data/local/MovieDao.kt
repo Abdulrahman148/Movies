@@ -22,7 +22,13 @@ interface MovieDao {
     suspend fun insertNowPlayingMovies(movieEntity: List<NowPlayingMovieEntity>)
 
     @Update
-    suspend fun updateMovie(movieEntity: PopularMovieEntity)
+    suspend fun updatePopularMovie(popularMovieEntity: PopularMovieEntity)
+
+    @Update
+    suspend fun updateTopRatedMovie(topRatedMovieEntity: TopRatedMovieEntity)
+
+    @Update
+    suspend fun updateNowPlayingMovie(nowPlayingMovieEntity: NowPlayingMovieEntity)
 
     @Query("SELECT * FROM popularMovieEntity")
     suspend fun getPopularMoviesFromLocal() : List<PopularMovieEntity>

@@ -10,6 +10,9 @@ import com.aah.domain.usecase.PopularLocalMovieUseCase
 import com.aah.domain.usecase.PopularMovieUseCase
 import com.aah.domain.usecase.TopRatedLocalMovieUseCase
 import com.aah.domain.usecase.TopRatedMovieUseCase
+import com.aah.domain.usecase.UpdateNowPlayingMovieUseCase
+import com.aah.domain.usecase.UpdatePopularMovieUseCase
+import com.aah.domain.usecase.UpdateTopRatedMovieUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -72,6 +75,24 @@ object UseCaseModule {
     @Singleton
     fun provideInsertNowPlayingMoviesUseCase(movieRepo: MovieRepo) : GetAndInsertNowPlayingMovieUseCase {
         return GetAndInsertNowPlayingMovieUseCase(movieRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdatePopularMovieUseCase(movieRepo: MovieRepo) : UpdatePopularMovieUseCase {
+        return UpdatePopularMovieUseCase(movieRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdateTopRatedMovieUseCase(movieRepo: MovieRepo) : UpdateTopRatedMovieUseCase {
+        return UpdateTopRatedMovieUseCase(movieRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdateNowPlayingMovieUseCase(movieRepo: MovieRepo) : UpdateNowPlayingMovieUseCase {
+        return UpdateNowPlayingMovieUseCase(movieRepo)
     }
 
 

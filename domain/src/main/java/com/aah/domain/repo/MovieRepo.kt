@@ -24,4 +24,10 @@ interface MovieRepo {
 
     suspend fun getNowPlayingMovieFromLocal() : List<Result>
 
+    suspend fun updatePopularMovie(popularMovieEntity: Result)
+
+    suspend fun updateTopRatedMovie(topRatedMovieEntity: Result)
+
+    suspend fun updateNowPlayingMovie(nowPlayingMovieEntity: Result)
+
 }

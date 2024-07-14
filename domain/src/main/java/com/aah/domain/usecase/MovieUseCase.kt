@@ -1,6 +1,7 @@
 package com.aah.domain.usecase
 
 
+import com.aah.domain.model.Result
 import com.aah.domain.repo.MovieRepo
 
 class GetAndInsertPopularMovieUseCase(private val movieRepo: MovieRepo) {
@@ -39,4 +40,16 @@ class TopRatedLocalMovieUseCase(private val movieRepo: MovieRepo) {
 
 class NowPlayingLocalMovieUseCase(private val movieRepo: MovieRepo) {
     suspend operator fun invoke() = movieRepo.getNowPlayingMovieFromLocal()
+}
+
+class UpdatePopularMovieUseCase(private val movieRepo: MovieRepo) {
+    suspend operator fun invoke(popularEntity: Result) = movieRepo.updatePopularMovie(popularEntity)
+}
+
+class UpdateTopRatedMovieUseCase(private val movieRepo: MovieRepo) {
+    suspend operator fun invoke(topRatedEntity: Result) = movieRepo.updateTopRatedMovie(topRatedEntity)
+}
+
+class UpdateNowPlayingMovieUseCase(private val movieRepo: MovieRepo) {
+    suspend operator fun invoke(nowPlayingEntity: Result) = movieRepo.updateNowPlayingMovie(nowPlayingEntity)
 }

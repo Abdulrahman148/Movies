@@ -1,5 +1,6 @@
 package com.aah.data.repoImplementation
 
+import android.util.Log
 import com.aah.data.local.MovieDao
 import com.aah.data.mappers.mapToEntity
 import com.aah.data.mappers.mapToNowPlayingEntity
@@ -32,10 +33,16 @@ class RepoImplementation(private val apiService: ApiService, private val movieDa
 
     override suspend fun getAndInsertNowPlayingMovieFromApi() {
         val response = apiService.getNowPlayingMovies()
+
         if (response.isSuccessful) {
-            response.body()?.let { movies ->
-                movieDao.insertNowPlayingMovies(movies.results.map { it.mapToNowPlayingEntity() })
+            try {
+                response.body()?.let { movies ->
+                    movieDao.insertNowPlayingMovies(movies.results.map { it.mapToNowPlayingEntity() })
+                }
+            } catch (e: Exception) {
+                Log.d("Mayada", e.message.toString())
             }
+
         }
     }
 
@@ -67,5 +74,17 @@ class RepoImplementation(private val apiService: ApiService, private val movieDa
         return movieDao.getNowPlayingMoviesFromLocal().map {
             it.mopToDomain()
         }
+    }
+
+    override suspend fun updatePopularMovie(popularMovieEntity: Result) {
+        movieDao.updatePopularMovie(popularMovieEntity.mapToEntity())
+    }
+
+    override suspend fun updateTopRatedMovie(topRatedMovieEntity: Result) {
+        movieDao.updateTopRatedMovie(topRatedMovieEntity.mapToTopRatedEntity())
+    }
+
+    override suspend fun updateNowPlayingMovie(nowPlayingMovieEntity: Result) {
+        movieDao.updateNowPlayingMovie(nowPlayingMovieEntity.mapToNowPlayingEntity())
     }
 }

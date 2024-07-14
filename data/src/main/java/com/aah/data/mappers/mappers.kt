@@ -19,7 +19,8 @@ fun Result.mapToEntity(): PopularMovieEntity {
         title = this.title,
         video = this.video,
         voteAverage = this.vote_average,
-        voteCount = this.vote_count
+        voteCount = this.vote_count,
+        isFavourite = this.isFavourites
     )
 }
 
@@ -38,7 +39,8 @@ fun Result.mapToTopRatedEntity(): TopRatedMovieEntity {
         title = this.title,
         video = this.video,
         voteAverage = this.vote_average,
-        voteCount = this.vote_count
+        voteCount = this.vote_count,
+        isFavourite = this.isFavourites
     )
 }
 
@@ -57,7 +59,8 @@ fun Result.mapToNowPlayingEntity(): NowPlayingMovieEntity {
         title = this.title,
         video = this.video,
         voteAverage = this.vote_average,
-        voteCount = this.vote_count
+        voteCount = this.vote_count,
+        isFavourite = this.isFavourites
     )
 }
 
@@ -78,7 +81,8 @@ fun PopularMovieEntity.mopToDomain() : Result {
         title = this.title,
         video = this.video,
         vote_average = this.voteAverage,
-        vote_count = this.voteCount
+        vote_count = this.voteCount,
+        isFavourites = this.isFavourite
     )
 }
 
@@ -97,14 +101,15 @@ fun TopRatedMovieEntity.mopToDomain() : Result {
         title = this.title,
         video = this.video,
         vote_average = this.voteAverage,
-        vote_count = this.voteCount
+        vote_count = this.voteCount,
+        isFavourites = this.isFavourite
     )
 }
 
 fun NowPlayingMovieEntity.mopToDomain() : Result {
     return Result(
         adult = this.adult,
-        backdrop_path = this.backdropPath,
+        backdrop_path = this.backdropPath ?: "",
         genre_ids = this.genreIds,
         id = this.id,
         original_language = this.originalLanguage,
@@ -116,6 +121,7 @@ fun NowPlayingMovieEntity.mopToDomain() : Result {
         title = this.title,
         video = this.video,
         vote_average = this.voteAverage,
-        vote_count = this.voteCount
+        vote_count = this.voteCount,
+        isFavourites = this.isFavourite
     )
 }
